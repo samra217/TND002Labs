@@ -1,9 +1,9 @@
 package lab1;
 
 public class Vector {
-	private double x;
-	private double y;
-	private double z;
+	private double x = 0.0;
+	private double y = 0.0;
+	private double z = 0.0;
 	public double[] vdef = new double[3];
 	
 	public Vector() {
@@ -23,8 +23,8 @@ public class Vector {
 	}
 	
 	public void setToDefault() {
-		this.vdef[0] = 0.0;
-		this.vdef[1] = 0.0;
-		this.vdef[2] = 0.0;
+		this.vdef[0] = x;
+		this.vdef[1] = y;
+		this.vdef[2] = z;
 	}
 }
