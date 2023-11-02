@@ -18,11 +18,14 @@ public class Lab1a {
 		
 	}
 	
-	public static double[] addition(double[]arg1, double[] arg2) {
+	
+	public static double[] addition(double[]arr1, double[] arr2) {
 		double[] result = new double[3];
+		
 		for (int i = 0; i < arg1.length; i++) {
-			result[i] = arg1[i] + arg2[i];
+			result[i] = arr1[i] + arr2[i];
 		}
+		
 		return result;
 	}
 	
