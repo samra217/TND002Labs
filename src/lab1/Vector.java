@@ -1,9 +1,15 @@
 package lab1;
+import java.util.*;
+
 
 public class Vector {
 	private double x;
 	private double y;
 	private double z;
+	
+	private double resultx;
+	private double resulty;
+	private double resultz;
 	
 	public static Vector vdef = new Vector(0.0, 0.0, 0.0);
 	
@@ -41,19 +47,19 @@ public class Vector {
 	}
 	
 	public Vector minus(Vector V) {
-		double resultx = this.x - V.x;
-		double resulty =  this.y - V.y;
-		double resultz = this.z -V.z;
-		Vector result = new Vector(resultx, resulty, resultz);
-		return result;
+		resultx = this.x - V.x;
+		resulty =  this.y - V.y;
+		resultz = this.z -V.z;
+		return new Vector(resultx, resulty, resultz);
+		
 	}
 	
 	public Vector mult(double arg) {
-		double resultx = this.x*arg;
-		double resulty = this.y*arg;
-		double resultz = this.z*arg;
-		Vector result = new Vector(resultx, resulty, resultz);
-		return result;
+		resultx = this.x*arg;
+		resulty = this.y*arg;
+		resultz = this.z*arg;
+		return new Vector(resultx, resulty, resultz);
+	
 	}
 	
 	public double mult(Vector V) {
@@ -66,11 +72,11 @@ public class Vector {
 	}
 	
 	public double length() {
-		double resultx = Math.pow(this.x, 2);
-		double resulty = Math.pow(this.y, 2);
-		double resultz = Math.pow(this.z, 2);
-		double result = Math.sqrt(resultx+resulty+resultz);
-		return result;
+		resultx = Math.pow(this.x, 2);
+		resulty = Math.pow(this.y, 2);
+		resultz = Math.pow(this.z, 2);
+		return Math.sqrt(resultx+resulty+resultz);
+		
 	}
 	
 	public Vector matrixMult(double[][] matrix) {
@@ -85,7 +91,10 @@ public class Vector {
 		
 		double[] vector = {this.x,this.y,this.z};
 		
-		double resultx = 0.0; double resulty = 0.0; double resultz = 0.0;
+		resultx = 0.0;  
+		resulty = 0.0; 
+		resultz = 0.0;
+		
 		
 		for (int row = 0; row < 3 ; ++row) {
 			for (int column = 0; column < 3; ++column ) {
@@ -101,8 +110,7 @@ public class Vector {
 			}
 		}
 		
-		Vector result = new Vector(resultx, resulty, resultz);
-		return result;
+		return new Vector(resultx, resulty, resultz);
 		
 	}
 	
@@ -128,7 +136,8 @@ public class Vector {
 	}
 	
 	public String toString() {
-		String s = "Vector = (" + this.x +","+ this.y + "," + this.z+")";
-		return s;
+		//return "Vector = (" + this.x +","+ this.y + "," + this.z+")";
+		return String.format("Vector = (%.1f, %.1f, %.1f)",this.x,this.y,this.z);
+	
 	}
 }

@@ -7,7 +7,11 @@ public class Lab1a {
 		da1[0] = 1.0;
 		da1[1] = 2.0;
 		da1[2] = 3.0; 
-		System.out.println(da1);
+		
+		
+		System.out.println(da1);  //because we don't have a toString() method. Pointer
+		
+		
 		double[] da2 = {0.0, -0.5, -2.0};
 		
 		double[] sum  = addition(da1, da2);
