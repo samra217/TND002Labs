@@ -8,7 +8,7 @@ public class Dictionary {
 	private ArrayList<Word> backup = null;
 	
 	public Dictionary() {
-		
+		theList = new ArrayList<Word>();
 	}
 	
 	public String addString(String arg) {
@@ -26,8 +26,8 @@ public class Dictionary {
 		Word newWord = new Word(arg, 1);
 		this.theList.add(newWord);
 		return newWord.toString();
-		
 	}
+	
 	
 	private static void swap(Word w1, Word w2) {
 		Word placement = w1;
@@ -35,40 +35,55 @@ public class Dictionary {
 		w2 = placement;
 	}
 	
+
+	
+	
 	
 	public String sortList(int arg) {
 		if (backup == null) {
-			backup = theList;
+			backup = new ArrayList<Word>(theList);
 		}
-		if (arg == Word.ORIGINAL) {
+		
+		
+		String returnString;
+		switch(arg) {
+		case Word.ORIGINAL:
 			theList = backup;
 			Word.setCriterion(arg);
 			return "word list was reset";
-		}
-		if (arg == Word.BYCOUNTS) {
+			
+		case Word.BYCOUNTS:
 			Word.setCriterion(arg);
-			for (int i = 0; i < theList.size(); i++) {
-				for (int j = ++i; j < theList.size(); j++) {
-					
-					if (theList.get(i).compareTo(theList.get(j)) == -1) {
-						swap(theList.get(i), theList.get(j));
-					}
+			returnString = "Sorted by counts";
+			break;
+		
+		case Word.BYNAME:
+			Word.setCriterion(arg);
+			returnString = "Sorted alphabetically";
+			break;
+			
+		default: 
+			return "Sort criterion not known";
+		}
+
+		
+		for (int i = 0; i < theList.size(); i++) {
+			for (int j = ++i; j < theList.size(); j++) {
+				
+				if (theList.get(i).compareTo(theList.get(j)) == -1) {
+					swap(theList.get(i), theList.get(j));
 				}
 			}
-			
 		}
-		if (arg == Word.BYNAME) {
-			Word.setCriterion(arg);
-			
-		}
+		return returnString;
+		
 			
 	}
 	public String toString() {
 		String s = "Content: \n";
 		for (Word w: theList) {
-			s += w +"\n";
+			s += w.toString() +"\n";
 		}
 		return s;
 	}
-	
 }
