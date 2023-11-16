@@ -1,5 +1,4 @@
 package lab2;
-import java.util.Formatter.*;
 
 
 public class Word {
@@ -32,29 +31,39 @@ public class Word {
 	}
 	
 	public int compareTo(Word arg) {
-		if (sortCriterion == ORIGINAL) {
-			return 2;
-		}
-		
-		
-		else if (sortCriterion == BYNAME) {
-			return this.theWord.compareTo(arg.theWord);
-		}
-	
-		
-		else if (sortCriterion == BYCOUNTS) {
-			if (this.count < arg.count) {
-				return -1;
-			}
-			if (this.count > arg.count) {
-				return 1;
-			}
-			return 0;
-			
-		}
-		
+		   if (sortCriterion == ORIGINAL) {
+		        return 2;
+		    } else if (sortCriterion == BYNAME) {
+		        if (this.theWord.compareTo(arg.theWord) <0 ) {
+		        	return -1;
+		        } else if (this.theWord.compareTo(arg.theWord) > 0) {
+		        	return 1;
+		        } else return 0;
+		        
+		        
+		        
+		    } else if (sortCriterion == BYCOUNTS) {
+		        if (this.count < arg.count) {
+		            return -1;
+		        } else if (this.count > arg.count) {
+		            return 1;
+		        } else return 0; 
+		        
+		    }
 		return 1;
 	}
+	
+	
+    public void swap(Word other) {
+        String tempWord = this.theWord;
+        int tempCount = this.count;
+
+        this.theWord = other.theWord;
+        this.count = other.count;
+
+        other.theWord = tempWord;
+        other.count = tempCount;
+    }
 	
 	
 	public String toString() {
