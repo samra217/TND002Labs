@@ -28,13 +28,7 @@ public class Dictionary {
 		return newWord.toString();
 	}
 	
-	/*
-	private static void swap(Word w1, Word w2) {
-		Word placement = w1;
-		w1 = new Word(w2.getWord(),w2.getCount());
-		w2 = new Word(placement.getWord(), placement.getCount());
-	}*/
-	
+
 
 
 
@@ -46,16 +40,9 @@ public class Dictionary {
 				backup.add(new Word(theList.get(i).getWord(), theList.get(i).getCount()));
 			}
 			
-			System.out.println("backup");
 		}
 		
-		/*
-		System.out.println("----");
-		for (Word w : this.theList) {
-			System.out.println(w);
-		}
-		System.out.println("----");
-		*/
+
 
 		String returnString;
 		switch(arg) {
