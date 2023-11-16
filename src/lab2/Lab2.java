@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Lab2 {
 
-	static BufferedReader consoleReader = new BufferedReader(new  InputStreamReader(System.in));
+	private static BufferedReader consoleReader = new BufferedReader(new  InputStreamReader(System.in));
 	
 	
 	public static void main(String[] args) throws IOException{
@@ -25,6 +25,7 @@ public class Lab2 {
 			filePath = directoryPath + userInput;
 			userFile = new File(filePath);
 		}
+		consoleReader.close();
 		
 		FileReader fileReader = new FileReader(userFile);
 		String fileString = "";
@@ -58,6 +59,8 @@ public class Lab2 {
 		
 		System.out.println(theDictionary);
 
+		File resultFile = new File(filePath+"result.txt");
+		resultFile.createNewFile();
 		
 		
 		
