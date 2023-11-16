@@ -1,5 +1,5 @@
 package lab2;
-import java.util.*;
+import java.util.Formatter.*;
 
 
 public class Word {

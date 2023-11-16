@@ -9,7 +9,7 @@ public class Lab2 {
 	
 	public static void main(String[] args) throws IOException{
 
-		Dictionary theDicionary = new Dictionary();
+		Dictionary theDictionary = new Dictionary();
 		System.out.println("Type filename: ");
 		
 		
@@ -27,13 +27,36 @@ public class Lab2 {
 		}
 		
 		FileReader fileReader = new FileReader(userFile);
-		String fileString;
+		String fileString = "";
 		while(userFile.canRead()) {
-			fileString += 
+			fileString += fileReader.read();
 		}
-	
+		fileReader.close();
+		
+		
+		String trimmedString = fileString.trim().toLowerCase();
+		String[] stringArr =  trimmedString.split(trimmedString);
+		
+		for (String i : stringArr) {
+			if (Integer.parseInt(i)) {
+				theDictionary.addString(i);
+				System.out.println(theDictionary.addString(i));
+			}
+		}
+		
+		System.out.println(theDictionary);
+		
+		System.out.println(theDictionary.sortList(Word.BYCOUNTS));
+		
+		System.out.println(theDictionary);
+		
+		System.out.println(theDictionary.sortList(Word.BYCOUNTS));
 
-			
+		System.out.println(theDictionary);
+		
+		System.out.println(theDictionary.sortList(Word.ORIGINAL));
+		
+		System.out.println(theDictionary);
 
 		
 		
