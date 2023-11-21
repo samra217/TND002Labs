@@ -1,6 +1,7 @@
 package lab3;
 
 import java.util.ArrayList;
+import java.util.Formatter.*;
 
 public class Account {
 
@@ -21,8 +22,12 @@ public class Account {
 	}
 	
 	public Account (String s, double d1, double d2) {
-		new Account(s, d1);
-		otherAccount = new SavingsAccount(s, d2);
+		this.customer = s;
+		this.balance = d1;
+		this.thisAccountNumber = accountNumbers;
+		++accountNumbers;
+		this.otherAccount = new SavingsAccount(s, d2);
+		otherAccount.otherAccount = this;
 		
 	}
 	
@@ -47,24 +52,24 @@ public class Account {
 	}
 	
 	public SavingsAccount getSavingsAccount () {
-		if(this instanceof SavingsAccount) {
-				return otherAccount;
+		if(this.otherAccount instanceof SavingsAccount) {
+				return (SavingsAccount) this.otherAccount;
 			}
-		if no
-		return null;
+		else return null;
+		
 		
 	}
 	
 	public String toString () {
 		String accountType = "";
 		
-		if (this.getSavingsAccount() =! null) {
+		if (this.getSavingsAccount() == null) {
 			accountType = "Current account";
 		} 
 		else accountType = "Savings account";
 		
 		
-		String returnString = String.format("%s with account number: %s Balance: %.1d\n",accountType, this.thisAccountNumber, this.balance);
+		String returnString = String.format("%s with account number: %s Balance: %.1f\n",accountType, this.thisAccountNumber, this.balance);
 		for	(String acnt : transactions) {
 			returnString += acnt + "\n";
 		}
