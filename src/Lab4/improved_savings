@@ -1,0 +1,28 @@
+	public void savings(double amount) {
+	    if (this.otherAccount instanceof SavingsAccount) {
+	        String currentTransaction = "";
+	        String savingsTransaction = "";
+
+	        if (amount > 0) {
+	            // Transfer money from current to savings
+	            double transferAmount = Math.min(this.getBalance(), amount);
+	            currentTransaction = String.format("To savings account: %.1f", transferAmount);
+	            savingsTransaction = String.format("From current account: %.1f", transferAmount);
+	            this.setBalance(this.getBalance() - transferAmount);
+	            this.otherAccount.setBalance(this.otherAccount.getBalance() + transferAmount);
+	        } else if (amount < 0) {
+	            // Transfer money from savings to current
+	        	if(otherAccount.getBalance() == 0) {
+	        		return;
+	        	}
+	            double transferAmount = Math.min(this.otherAccount.getBalance(), -amount);
+	            savingsTransaction = String.format("To current account: %.1f", transferAmount);
+	            currentTransaction = String.format("From savings account: %.1f", transferAmount);
+	            this.setBalance(this.getBalance() + transferAmount);
+	            this.otherAccount.setBalance(this.otherAccount.getBalance() - transferAmount);
+	        }
+
+	        this.transactions.add(currentTransaction);
+	        this.otherAccount.transactions.add(savingsTransaction);
+	    }
+	}
