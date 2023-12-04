@@ -30,8 +30,8 @@ public class CurrentAccount extends Account {
 
 				}
 				else { //if current account don't have enough balance, 0 it add all to savings
-					currentTransaction = String.format("To savings account: %.1fwith account number: %d", this.getBalance(),this.getAccountNumber());
-					savingsTransaction = String.format("From current account: %.1fwith account number: %d",this.getBalance(),this.otherAccount.getAccountNumber());
+					currentTransaction = String.format("To savings account: %.1f", this.getBalance());
+					savingsTransaction = String.format("From current account: %.1f",this.getBalance());
 					
 					
 					this.otherAccount.setBalance(this.otherAccount.getBalance()+this.getBalance());
@@ -43,9 +43,10 @@ public class CurrentAccount extends Account {
 			}
 			else if ( d <0) {
 				if (otherAccount.getBalance() == 0) {return;}
+				
 				if (this.otherAccount.getBalance() + d < 0) { //if saving account don't have enough balance, 0 it and add all to current
-					savingsTransaction = String.format("To current account: %.1f with account number: %d", this.otherAccount.getBalance(), this.getAccountNumber());
-					currentTransaction = String.format("From savings account: %.1f with account nu,ber:%d",this.otherAccount.getBalance(),this.otherAccount.getAccountNumber());
+					savingsTransaction = String.format("To current account: %.1f", this.otherAccount.getBalance());
+					currentTransaction = String.format("From savings account: %.1f",this.otherAccount.getBalance());
 					
 					
 					this.setBalance(this.getBalance()+this.otherAccount.getBalance());
@@ -57,8 +58,8 @@ public class CurrentAccount extends Account {
 					
 					this.otherAccount.setBalance(this.otherAccount.getBalance()+d);
 					
-					savingsTransaction = String.format("To current account: %.1fwith account number: %d", -d,this.getAccountNumber());
-					currentTransaction = String.format("From savings account: %.1fwith account number: %d",-d,this.otherAccount.getAccountNumber());
+					savingsTransaction = String.format("To current account: %.1f", -d);
+					currentTransaction = String.format("From savings account: %.1f",-d);
 				}
 				
 			}
@@ -74,11 +75,11 @@ public class CurrentAccount extends Account {
 		this.setBalance(this.getBalance() + amount);
 		if (s.equals("Cash payment")) {
 			
-			this.transactions.add(s + ": "+ amount+"\n");
+			this.transactions.add(s + ": "+ amount);
 		}
 		
 		else {
-			this.transactions.add("Received from account of " + s + ": "+amount + "\n");
+			this.transactions.add("Received from account of " + s + ": "+amount);
 		}
 	}
 	
@@ -88,7 +89,7 @@ public class CurrentAccount extends Account {
 		receiver.receive(this.getCustomer(),amount);
 		
 		this.setBalance(this.getBalance() - amount);
-		this.transactions.add("Sent to account of "+receiver.getCustomer()+ ": " +amount +"\n");
+		this.transactions.add("Sent to account of "+receiver.getCustomer()+ ": " +amount);
 		
 		
 		
@@ -101,7 +102,7 @@ public class CurrentAccount extends Account {
 		}
 		if (this.getBalance() < 0) {
 			
-			this.transactions.add("Covered by loan: " + Math.abs(this.getBalance()) +"\n");
+			this.transactions.add("Covered by loan: "  + -this.getBalance());
 			theBank.getLoan(this);
 			this.setBalance(0.0);
 		}

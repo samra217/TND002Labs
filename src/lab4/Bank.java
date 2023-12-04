@@ -110,17 +110,22 @@ public class Bank {
 			if (theLoans.get(i).getCustomer().equals(customer)) {
 				
 
-				debtLeft = theLoans.get(i).payOff(amount);
+				debtLeft = theLoans.get(i).payOff(debtLeft);
 				
 				
-				if(debtLeft >= 0) {
+				if(debtLeft > 0) {
 					 //amount to pay to the next loan
 					theLoans.remove(i);
 					--i;
-				}  //if you don't have enough money to pay back more loans, stop the loop
+				}  else return;//if you don't have enough money to pay back more loans, stop the loop
 			}
 		}
+		if (debtLeft > 0 ) {
+			searchAccount(customer).receive("Cash payment", debtLeft);
+			
+		}
 	}
+	
 	
 	
 	

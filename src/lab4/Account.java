@@ -83,7 +83,7 @@ public class Account {
 			this.setBalance(this.getBalance()*loanInterest);
 		}
 		
-		if (this instanceof CurrentAccount && this.getBalance()+currentInterest >= 0) {
+		if (this instanceof CurrentAccount) {
 			this.setBalance(getBalance()+currentInterest);
 			if (this.getBalance() < 0) {
 				theBank.getLoan((CurrentAccount) this);
@@ -111,7 +111,7 @@ public class Account {
 		
 		
 		String returnString = String.format("%s Balance: %.1f\n",accountType,  this.balance);
-		for	(String acnt : transactions) {
+		for	(String acnt : this.transactions) {
 			returnString += acnt + "\n";
 		}
 		
