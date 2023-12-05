@@ -19,7 +19,11 @@ public abstract class Building implements Comparable<Building>{
 	public abstract double maintenance();
 	
 	public int compareTo(Building b) {
-		return this.compareTo(b);
+		if (selection == 1) {
+			return (price == b.price) ? 0 : (price < b.price) ? -1 : 1;
+		}
+		
+		return (squareMeters == b.squareMeters) ? 0: (squareMeters < b.squareMeters) ? -1  : 1;
 	}
 	
 	public String toString() {
