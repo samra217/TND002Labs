@@ -22,15 +22,20 @@ public abstract class Building implements Comparable<Building>{
 		if (selection == 1) {
 			return (price == b.price) ? 0 : (price < b.price) ? -1 : 1;
 		}
+		if (selection == 2) {
+			return (squareMeters == b.squareMeters) ? 0: (squareMeters < b.squareMeters) ? -1  : 1;
+		}
+		return 2;
 		
-		return (squareMeters == b.squareMeters) ? 0: (squareMeters < b.squareMeters) ? -1  : 1;
 	}
 	
 	public String toString() {
-		String returnString = String.format("Address: %16s Living area: %d Price: %8.2f Maintenance (per month): %5.2f", address, squareMeters, price, maintenance());
+		String returnString = String.format("Address: %16s Living area: %d Price: %8.2f Maintenance (per month): %5.2f\n", address, squareMeters, price, maintenance());
 		if (this instanceof CityProperty) {
-			returnString += "Property tax: " +  this.computePropertyTax();
+			returnString += "Property tax: " + ((CityProperty)this).computePropertyTax()+"\n";
 		}
+		else returnString +="\n";
+		return returnString;
 	}
 	
 }
