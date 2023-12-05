@@ -1,0 +1,121 @@
+package lab5;
+import java.util.*;
+import javax.swing.JOptionPane;
+
+
+public class EstateAgent  {
+	public static final int ALLBUILDINGS = 1;
+	public static final int CITYBUILDINGS = 2;
+	public static final int COTTAGES = 3;
+	
+	public final String NAME;
+	private ArrayList<Building> theBuildings = new ArrayList<>();
+	private ArrayList<CityProperty> theCityBuildings = new ArrayList<>();
+	private ArrayList<Cottage> theCottages = new ArrayList<>();
+	
+	public EstateAgent(String name)  {
+		NAME = name;
+	}
+	
+	public String addBuilding(Building b) {
+		theBuildings.add(b);
+		
+		if (b instanceof Cottage) {
+			theCottages.add((Cottage)b);
+			return "Added cottage";
+		}
+		if (b instanceof CityProperty) {
+			theCityBuildings.add((CityProperty)b);
+			return "Added city building";
+		}
+		return "NaB";
+	}
+	
+	public String sort(int crit) {
+		String input = JOptionPane.showInputDialog("Sorting by price (1) or area (2)?");
+		try {
+			Building.selection = Integer.parseInt(input);
+		} catch(NumberFormatException ierr) {}
+		
+
+		if (crit == ALLBUILDINGS) {
+			Collections.sort(theBuildings);
+			updateLists();
+		}
+		else if (crit == CITYBUILDINGS) {
+			ArrayList<Building> cityDeepCopy = new ArrayList<>();
+			
+			for (CityProperty c : theCityBuildings) {
+				cityDeepCopy.add((Building)c);
+			}
+			Collections.sort(cityDeepCopy);
+			
+			theCityBuildings.clear();
+			for(Building b : cityDeepCopy) {
+				theCityBuildings.add((CityProperty)b);
+			}
+			
+			updateLists(CITYBUILDINGS);
+		}
+		else if (crit == COTTAGES) {
+			Collections.sort(theCottages);
+			updateLists(COTTAGES);
+		}
+		
+		return Building.selection == 2 ? "Sorted by area" : Building.selection == 1 ? "Sorted by price" : "not sorted";
+	}
+	
+	public void updateLists() {
+		//TODO: cottage and city should be in the order of allbuild
+		theCityBuildings.clear();
+		theCottages.clear();
+		for (Building b : theBuildings) {
+			if (b instanceof CityProperty) {
+				theCityBuildings.add((CityProperty)b);
+			}
+			if (b instanceof Cottage) {
+				theCottages.add((Cottage)b);
+			}
+		}
+		
+	}
+	
+	public void updateLists(int choice) {
+		if (choice == CITYBUILDINGS) {
+			int index = 0;
+			for (int i = 0; i < theBuildings.size(); i++) {
+				if(theBuildings.get(i) instanceof CityProperty) {
+					theBuildings.set(i, (Building)theCityBuildings.get(index));
+					index++;
+				}
+			}
+		}
+		if (choice == COTTAGES) {
+			int index = 0;
+			for (int i = 0; i < theBuildings.size(); i++) {
+				if(theBuildings.get(i) instanceof Cottage) {
+					theBuildings.set(i, (Building)theCottages.get(index));
+					index++;
+				}
+			}
+		}
+	}
+	
+	public String toString() {
+		String returnString = "Estate agent: "+ NAME + "\nAll buildings\n";
+		for (Building b : theBuildings) {
+			returnString += b.toString();
+		}
+		returnString += "\nCottages: \n";
+		for(Cottage co: theCottages) {
+			returnString += co.toString();
+		}
+		returnString += "\nVillas and Apartments:\n";
+		for(CityProperty c: theCityBuildings) {
+			returnString += c.toString();
+		}
+
+		return returnString;
+	}
+	
+}
