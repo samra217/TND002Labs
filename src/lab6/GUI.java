@@ -184,6 +184,7 @@ public class GUI extends JFrame implements ActionListener {
 		if (e.getSource() == add) {
 			if(!readAddPerson) {
 				nameField.setText("");
+				numberField.setText("");
 				searchField.setText("Type in name and phonenumber");
 				searchField.setEditable(false);
 				
