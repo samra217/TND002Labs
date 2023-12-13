@@ -47,9 +47,8 @@ public class Phonebook {
 		
 		Person newPerson = new Person(splitName[0],splitName[1], number);
 		listOfNumbers.add(newPerson);
-		return true;
-
 		listOfNumbers = new ArrayList<Person>();
+		return true;
 		
 	}
 	
@@ -89,7 +88,7 @@ public class Phonebook {
 	
 	public String deletePerson(String name, int phoneNum) {
 		for (Person per : listOfNumbers) {
-			if (per.getFullName.equals(name) && per.getPhoneNumber()) {
+			if (per.getFullName().equals(name) && per.getPhoneNumber()) {
 				listOfNumbers.remove(per.indexOf());
 				return "Person deleted";
 			}
