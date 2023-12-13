@@ -3,6 +3,7 @@ package lab6;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 						
 public class GUI extends JFrame implements ActionListener {
 
@@ -12,6 +13,10 @@ public class GUI extends JFrame implements ActionListener {
 	
 	private Phonebook myPhonebook = new Phonebook();
 	
+	private int personCounter = 0;
+	private ArrayList<Person> personArr;
+	
+	boolean readAddPerson = false;
 	
 	public GUI() {
 		this.setTitle("Interactive phone book");
@@ -93,6 +98,10 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		
+		
+		
 		if (e.getSource() == load || e.getSource()== searchField) {
 			String searchString = searchField.getText();
 			searchField.setText("");
@@ -105,6 +114,109 @@ public class GUI extends JFrame implements ActionListener {
 				delete.setEnabled(true);
 			}
 		}
+		
+		if (e.getSource() == save) {
+			String searchString = searchField.getText();
+			searchField.setText("");
+			if(searchString.isEmpty()) {
+				nameField.setText("Provide a file name");
+			}
+			else {
+				nameField.setText(myPhonebook.save(searchString));
+			}
+			
+		}
+		
+		
+		if (e.getSource() == search) {
+			String searchString = searchField.getText();
+			searchField.setText("");
+			
+			personArr = myPhonebook.search(searchString);
+			if (personArr.size() == 0) {
+				nameField.setText("Provide a name");
+				numberField.setText("");
+			}
+			else if (personArr.size() == 1){
+				nameField.setText(personArr.get(0).getFullName());
+				try {
+					numberField.setText(Integer.toString(personArr.get(0).getPhoneNumber()));
+				} catch (NumberFormatException ierr) {}
+				
+			}
+			else {
+				next.setEnabled(true);
+				personCounter = 0;			
+				
+				nameField.setText(personArr.get(personCounter).getFullName());
+				try {
+					numberField.setText(Integer.toString(personArr.get(personCounter).getPhoneNumber()));
+				} catch (NumberFormatException ierr) {}
+			}
+			
+		}
+		if (e.getSource() == next) {
+			personCounter++;
+			if (personCounter >= personArr.size()) {
+				personCounter = 0;
+				next.setEnabled(false);
+			}
+			nameField.setText(personArr.get(personCounter).getFullName());
+			try {
+				numberField.setText(Integer.toString(personArr.get(personCounter).getPhoneNumber()));
+			} catch (NumberFormatException ierr) {}
+			
+		}
+		
+		
+		
+		if (e.getSource() == delete) {
+			String deleteName = nameField.getText();
+			try {
+				Integer deleteInt = Integer.parseInt(numberField.getText());
+				searchField.setText(myPhonebook.deletePerson(deleteName, deleteInt));
+			} catch(NumberFormatException ierr) {
+				searchField.setText("Person/number does not exist");
+			}
+			
+		}
+		
+		if (e.getSource() == add) {
+			if(!readAddPerson) {
+				nameField.setText("");
+				searchField.setText("Type in name and phonenumber");
+				searchField.setEditable(false);
+				
+				nameField.setEditable(true);
+				numberField.setEditable(true);
+				readAddPerson = true;
+			} else {
+				try {
+					boolean personAdded = myPhonebook.addPerson(nameField.getText(), Integer.parseInt(numberField.getText()));
+					
+					
+					nameField.setText("");
+					nameField.setEditable(false);
+					
+					numberField.setText("");
+					numberField.setEditable(false);
+					
+					searchField.setEditable(true);
+					
+					if (personAdded) {
+						searchField.setText("Person added");
+					}else {
+						searchField.setText("Person could not be added");
+					}
+					readAddPerson = false;
+				} catch(NumberFormatException ierr) {}
+				
+				
+				
+			}
+		}
+		
+	
 	}
 	
 

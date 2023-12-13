@@ -19,7 +19,7 @@ public class Phonebook {
 		
 		for (Person p : listOfNumbers) {
 			try {
-				if (name == p.getSurName() || Integer.parseInt(name)== p.getPhoneNumber()); {
+				if (name.equals(p.getSurName()) || Integer.parseInt(name)== p.getPhoneNumber()); {
 					listOfPeople.add(p);
 				}
 			} catch (NumberFormatException ignore) {}
@@ -40,74 +40,80 @@ public class Phonebook {
 				numberFound = true;
 			}
 		}
-		
-		if (splitName.length != 2 || numberFound == true) {
+		System.out.println(splitName.length);
+		if (splitName.length != 2 || numberFound) {
 			return false;
 		}
 		
 		Person newPerson = new Person(splitName[0],splitName[1], number);
 		listOfNumbers.add(newPerson);
-		listOfNumbers = new ArrayList<Person>();
+		
 		return true;
 		
 	}
 	
 	public String load(String file) {
-		File phoneBook = new File(file);
-		
-		if (!phoneBook.exists()) {
-			return "File does not exist";
-		}
-		
-		try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(phoneBook));
-			
-			String lineString;
-			String[] instOfPerson;
-			int PhoneNum;
-			
-			while ((lineString = fileReader.readLine())!=null) {
-				instOfPerson = lineString.split(" +");
-				
-				PhoneNum = Integer.parseInt(lineString[2]);
-				
-				listOfNumbers.add(new Person(lineString[0], lineString[1], PhoneNum));
-			
-			}
-			
-			fileReader.close();
-			
-			
-			return "Phone book loaded";
-		} catch(IOException ierr) {};
-		
-		return "Try again";
 
-	}
+        try {
+        	File phoneBook = new File("C:/Users/samue/eclipse-workspace/TND002Labs/src/lab6/"+file);
+        	
+            BufferedReader fileReader = new BufferedReader(new FileReader(phoneBook));
+
+            String lineString;
+            String[] instOfPerson;
+            int PhoneNum;
+
+            while ((lineString = fileReader.readLine())!=null) {
+                instOfPerson = lineString.split(" +");
+
+                PhoneNum = Integer.parseInt(instOfPerson[2]);
+
+                listOfNumbers.add(new Person(instOfPerson[0], instOfPerson[1], PhoneNum));
+
+            }
+
+            fileReader.close();
+
+
+            return "Phone book loaded";
+        } catch(IOException ierr) {
+        	return "Try again";
+        	}
+        
+
+    }
 	
 	
 	public String deletePerson(String name, int phoneNum) {
-		for (Person per : listOfNumbers) {
-			if (per.getFullName().equals(name) && per.getPhoneNumber()) {
-				listOfNumbers.remove(per.indexOf());
-				return "Person deleted";
-			}
-		}
-		return "The person/number does not exist";
-	}
+        for (Person per : listOfNumbers) {
+            if (per.getFullName().equals(name) && per.getPhoneNumber() == phoneNum) {
+                listOfNumbers.remove(listOfNumbers.indexOf(per));
+                return "Person deleted";
+            }
+        }
+        return "The person/number does not exist";
+    }
 	
 	public String save(String file) {
-		File userFile = new File(file);
-		
-		try {
-			BufferedWriter fileWriter = new BufferedWriter(new FileWriter(userFile));
-			
-			for (Person per : listOfNumbers)
-			
-			return "Saved " + listOfNumbers.size() + " people to the file";
-		} catch (IOException ierr) {}
-		
-		return "Could not save to the file";
 
-	}
+        File userFile = new File(file);
+
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(userFile));
+
+            for (Person per : listOfNumbers) {
+
+                fileWriter.write(String.format("%20s %5d\n", per.getFullName(), per.getPhoneNumber()));
+            }
+
+            fileWriter.flush();
+            fileWriter.close();
+
+            return "Saved " + listOfNumbers.size() + " people to the file";
+
+        } catch (IOException ierr) {}
+
+        return "Could not save to the file";
+    }
+
 }
