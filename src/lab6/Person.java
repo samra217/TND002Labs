@@ -16,7 +16,11 @@ public class Person {
 		return this.surName;
 	}
 	
-	public Stringe getFullName() {
+	public String getFullName() {
 		return this.givenName+" "+this.surName;
+	}
+	
+	public int getPhoneNumber() {
+		return phoneNumber;
 	}
 }
