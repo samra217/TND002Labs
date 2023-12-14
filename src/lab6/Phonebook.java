@@ -55,7 +55,7 @@ public class Phonebook {
 	public String load(String file) {
 
         try {
-        	File phoneBook = new File("C:/Users/samue/eclipse-workspace/TND002Labs/src/lab6/"+file);
+        	File phoneBook = new File(file);
         	
             BufferedReader fileReader = new BufferedReader(new FileReader(phoneBook));
 
