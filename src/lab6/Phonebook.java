@@ -40,7 +40,7 @@ public class Phonebook {
 				numberFound = true;
 			}
 		}
-		System.out.println(splitName.length);
+		
 		if (splitName.length != 2 || numberFound) {
 			return false;
 		}
