@@ -103,7 +103,7 @@ public class Phonebook {
 
             for (Person per : listOfNumbers) {
 
-                fileWriter.write(String.format("%20s %5d\n", per.getFullName(), per.getPhoneNumber()));
+                fileWriter.write(String.format("%-20s %-5d\n", per.getFullName(), per.getPhoneNumber()));
             }
 
             fileWriter.flush();
